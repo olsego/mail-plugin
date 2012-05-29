@@ -12,11 +12,6 @@ import play.modules.mail.MailBuilder.Mail
 import play.modules.mail.MailWorker.Start
 import play.api.Play.current
 
-/**
- * User: alabbe
- * Date: 01/03/12
- * Time: 17:19
- */
 
 class MailPlugin(app:Application) extends Plugin {
 
@@ -28,9 +23,9 @@ class MailPlugin(app:Application) extends Plugin {
   )
 
    override def onStart() {
-      Logger.info("Mail plugin starting...")
+      Logger.info("Starting MailPlugin...")
       MailWorker.ref ! Start(helper.mailer)
-      Logger.info("Mail plugin successfully started with smtp server on %s:%s".format(helper.host, helper.port))
+      Logger.info("MailPlugin successfully started with smtp server on %s:%s".format(helper.host, helper.port))
    }
 }
 

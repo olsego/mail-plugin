@@ -3,6 +3,7 @@ package play.modules.mail
 import play.api.templates.Html
 
 import org.codemonkey.simplejavamail.Email
+import javax.activation.URLDataSource
 
 object MailBuilder {
    import javax.mail.Message.RecipientType
@@ -25,11 +26,12 @@ object MailBuilder {
       def toEmail:Email = {
          val email = new Email();
          this._from.map(f => email.setFromAddress(f._1,f._2))
-         this._subject.map(s => email.setSubject(s))
+         this._subject.map(s => email.setSubject(javax.mail.internet.MimeUtility.encodeText(s, "utf-8", "B")))
          this._to.foreach(t => email.addRecipient(t._1,t._2,t._3.t))
          this._text.map(s => email.setText(s))
          this._html.map(h => email.setTextHTML(h.toString))
-         email
+
+        email
       }
    }
 }
